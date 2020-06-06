@@ -5,18 +5,16 @@ import {
 from 'reactstrap';
 import { CSSTransition, TransitionGroup }
 from 'react-transition-group';
-import { v4 as uuid} from 'uuid'
+import {connect} from 'react-redux'
+import {getExercises} from '../actions/exerciseActions'
+import PropTypes from 'prop-types';
 
 class ExerciseList extends Component {
-state = {  
-    exercises:[
-        {id: uuid(), name: "Curls", set: 4, reps: 12, weight: 10},
-        {id: uuid(), name: "Squats", set: 4, reps: 12, weight: 10},
-        {id: uuid(), name: "Pull Ups", set: 4, reps: 12, weight: 10},
-        {id: uuid(), name: "Push Ups", set: 4, reps: 12, weight: 10}
-    ]
 
-}
+    // Load state from getItems
+    componentDidMount(){
+        this.props.getExercises();
+    }
 
     removeExercise = id => {
         this.setState({
@@ -26,7 +24,7 @@ state = {
 
     render() {
         // Destructuring
-        const {exercises} = this.state; 
+        const {exercises} = this.props.exercise; 
         return ( 
             <Container>
                 <ListGroup>
@@ -51,5 +49,15 @@ state = {
          );
     }
 }
+
+ExerciseList.propTypes = {
+    getExercises: PropTypes.func.isRequired,
+    exercise: PropTypes.object.isRequired
+}
+
+// Maps initial state to props through the action of getItems
+const mapStateToProps = (state) => ({
+    exercise: state.exercise
+});
  
-export default ExerciseList;
+export default connect(mapStateToProps, {getExercises}) (ExerciseList);
