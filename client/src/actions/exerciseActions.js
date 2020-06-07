@@ -5,3 +5,23 @@ export const getExercises = () => {
         type: GET_EXERCISES
     }
 }
+
+export const addExercise = (exercise) => {
+    return {
+        type: ADD_EXERCISE,
+        payload: exercise
+    }
+}
+
+export const deleteExercise = (id) => {
+    return {
+        type: DELETE_EXERCISE,
+        payload: id
+    }
+}
+
+export const setExercisesLoading = () =>{
+    return{
+        type: EXERCISES_LOADING
+    }
+}

@@ -3,19 +3,36 @@ import {GET_EXERCISES, ADD_EXERCISE, DELETE_EXERCISE, EXERCISES_LOADING} from '.
 
 const initialState = {
     exercises:[
-        {id: uuid(), name: "Curls", set: 4, reps: 12, weight: 10},
-        {id: uuid(), name: "Squats", set: 4, reps: 12, weight: 10},
-        {id: uuid(), name: "Pull Ups", set: 4, reps: 12, weight: 10},
-        {id: uuid(), name: "Push Ups", set: 4, reps: 12, weight: 10}
-    ]
+        {id: uuid(), name: "Curls", sets: 4, reps: 12, weight: 10},
+        {id: uuid(), name: "Squats", sets: 4, reps: 12, weight: 10},
+        {id: uuid(), name: "Pull Ups", sets: 4, reps: 12, weight: 10},
+        {id: uuid(), name: "Push Ups", sets: 4, reps: 12, weight: 10}
+    ],
+    loading: false
 }
 
 export default function (state = initialState, action){
     switch(action.type){
         case GET_EXERCISES:
             return{
-                ...state
+                ...state,
+                loading: false
             };
+        case ADD_EXERCISE:
+            return{
+                ...state,
+                exercises: [...state.exercises, action.payload]
+            }
+        case DELETE_EXERCISE:
+            return{
+                ...state,
+                exercises: state.exercises.filter(exercise => exercise.id !== action.payload)
+            }
+        case EXERCISES_LOADING:
+            return{
+                ...state,
+                loading: true
+            }
         default:
             return state;
     }

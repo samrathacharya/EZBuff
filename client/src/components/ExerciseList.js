@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-    Container, ListGroup, ListGroupItem, Button
+    Container, ListGroup, ListGroupItem, Button, ListGroupItemHeading, ListGroupItemText
 }
 from 'reactstrap';
 import { CSSTransition, TransitionGroup }
 from 'react-transition-group';
 import {connect} from 'react-redux'
-import {getExercises} from '../actions/exerciseActions'
+import {getExercises, deleteExercise} from '../actions/exerciseActions'
 import PropTypes from 'prop-types';
 
 class ExerciseList extends Component {
@@ -16,10 +16,8 @@ class ExerciseList extends Component {
         this.props.getExercises();
     }
 
-    removeExercise = id => {
-        this.setState({
-            exercises: this.state.exercises.filter(exercise => exercise.id !== id)
-        });
+    onDeleteClick = id =>{
+        this.props.deleteExercise(id);
     }
 
     render() {
@@ -29,17 +27,31 @@ class ExerciseList extends Component {
             <Container>
                 <ListGroup>
                     <TransitionGroup className="shopping-list">
-                        {exercises.map(({id, name, set, reps, weight}) =>(
+                        {exercises.map(({id, name, sets, reps, weight}) =>(
                             <CSSTransition key={id} timeout={500} classNames="fade">
                                 <ListGroupItem>
-                                    <Button
-                                    className="remove-btn"
-                                    color="danger"
-                                    size="sm"
-                                    // onClick={(id) => this.removeExercise(id)}
-                                    >
-                                        &times;</Button>
-                                    {name}</ListGroupItem>
+                                    <div className="input-group">
+                                    <span className="input-group-btn">
+                                        <Button
+                                        className="remove-btn"
+                                        color="danger"
+                                        size="sm"
+                                        onClick={this.onDeleteClick.bind(this,id)}
+                                        >
+                                            &times;</Button>
+                                    </span>
+                                    <ListGroupItemHeading >{name}</ListGroupItemHeading>
+                                    </div>
+                                    
+                                    <ListGroupItemText>
+                                        <span style={{fontWeight: 'bold'}}>Sets: </span>
+                                        <span style={{marginRight: '1rem'}}>{sets}</span>
+                                        <span style={{fontWeight: 'bold'}}>Reps: </span>
+                                        <span style={{marginRight: '1rem'}}>{reps}</span>
+                                        <span style={{fontWeight: 'bold'}}>Weight: </span>
+                                        <span style={{marginRight: '1rem'}}>{weight} kg</span>
+                                    </ListGroupItemText>
+                                    </ListGroupItem>
                             </CSSTransition>
 
                         ))}
@@ -60,4 +72,4 @@ const mapStateToProps = (state) => ({
     exercise: state.exercise
 });
  
-export default connect(mapStateToProps, {getExercises}) (ExerciseList);
+export default connect(mapStateToProps, {getExercises, deleteExercise}) (ExerciseList);
