@@ -27,8 +27,8 @@ class ExerciseList extends Component {
             <Container>
                 <ListGroup>
                     <TransitionGroup className="shopping-list">
-                        {exercises.map(({id, name, sets, reps, weight}) =>(
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {exercises.map(({_id, name, sets, reps, weight}) =>(
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
                                     <div className="input-group">
                                     <span className="input-group-btn">
@@ -36,7 +36,7 @@ class ExerciseList extends Component {
                                         className="remove-btn"
                                         color="danger"
                                         size="sm"
-                                        onClick={this.onDeleteClick.bind(this,id)}
+                                        onClick={this.onDeleteClick.bind(this,_id)}
                                         >
                                             &times;</Button>
                                     </span>

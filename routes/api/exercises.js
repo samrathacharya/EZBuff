@@ -32,7 +32,7 @@ router.post("/", (req,res) =>{
 //@route DELETE api/exercises/:id (id is param)
 //@desc Delete given exercise
 //@access Public
-router.get("/:id", (req,res) =>{
+router.delete("/:id", (req,res) =>{
     Exercise.findById(req.params.id)
     .then(exercise => exercise.remove()
     .then(() => res.json({success: true})
