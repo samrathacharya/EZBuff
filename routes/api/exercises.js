@@ -1,6 +1,8 @@
 //Use express router
 const express = require("express");
 const router = express.Router();
+// Bring in middleware to ensure authentication
+const auth = require('../../middleware/auth');
 
 const Exercise = require('../../models/exercise');
 
@@ -15,8 +17,8 @@ router.get("/", (req,res) =>{
 
 //@route POST api/exercises
 //@desc Create a new exercise
-//@access Public
-router.post("/", (req,res) =>{
+//@access Private
+router.post("/", auth, (req,res) =>{
     const newExercise = new Exercise({
         name: req.body.name,
         sets: req.body.sets,
@@ -31,8 +33,8 @@ router.post("/", (req,res) =>{
 
 //@route DELETE api/exercises/:id (id is param)
 //@desc Delete given exercise
-//@access Public
-router.delete("/:id", (req,res) =>{
+//@access Private
+router.delete("/:id", auth, (req,res) =>{
     Exercise.findById(req.params.id)
     .then(exercise => exercise.remove()
     .then(() => res.json({success: true})
