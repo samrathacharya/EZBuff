@@ -55,6 +55,8 @@ router.post("/", (req,res) =>{
     })
 });
 
+// Add route because JWT tokens are stateless, we need a way to constantly validate the user that is logged in to 
+//frontend
 //@route GET api/auth/user
 //@desc Get user daya
 //@access Private

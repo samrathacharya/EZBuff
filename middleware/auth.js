@@ -8,7 +8,7 @@ function auth (req, res, next){
     const token = req.header('x-auth-token');
 
     // Check for token, else unauthorised token
-    if(!token) res.status(401).json({msg: "No token, authorisation denied"});
+    if(!token) return res.status(401).json({msg: "No token, authorisation denied"});
     
     try{
         //Verify token
@@ -24,11 +24,5 @@ function auth (req, res, next){
     }
 }
 
-// Add route because JWT tokens are stateless, we need a way to constantly validate the user that is logged in to 
-//frontend
-
-//@route GET api/auth
-//@desc Get user data
-//@access Private
 
 module.exports = auth;
