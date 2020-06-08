@@ -22,7 +22,7 @@ class ExerciseList extends Component {
 
     render() {
         // Destructuring
-        const {exercises} = this.props.exercise; 
+        const exercises = this.props.exercise.exercises; 
         return ( 
             <Container>
                 <ListGroup>
