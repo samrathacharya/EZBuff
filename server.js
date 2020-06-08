@@ -17,6 +17,9 @@ mongoose
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log("Error: "+err));
 
+//Use routes
+app.use('/api/exercises', exercises)
+
 // Serve static assets (in build folder if in production)
 if (process.env.NODE_ENV === 'production'){
     // Set static folder
@@ -31,7 +34,6 @@ if (process.env.NODE_ENV === 'production'){
 //Connect port
 const port = process.env.PORT || 5000;
 
-//Use routes
-app.use('/api/exercises', exercises)
+
 
 app.listen(port, () => console.log(`Server has started on port ${port}`));
